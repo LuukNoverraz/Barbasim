@@ -17,7 +17,12 @@ public class CreatureSpawner : MonoBehaviour
     void Start()
     {
         startPopulation = Random.Range(400, 500);
+        
+        SpawnCreature();
+    }
 
+    public void SpawnCreature()
+    {
         for (int i = 0; i < startPopulation; i++) 
         {
             xPos = Random.Range(0.0f, 450.0f);
@@ -35,6 +40,6 @@ public class CreatureSpawner : MonoBehaviour
             //     Debug.Log("MAYBE");
             //     newCreature.transform.position = new Vector3(xPos, hit.point.y + 2.0f, zPos);
             // }
-        }
+        }       
     }
 }

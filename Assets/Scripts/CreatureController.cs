@@ -6,6 +6,8 @@ public class CreatureController : MonoBehaviour
 {
     public GameController gameController;
 
+    public bool firstGeneration = true;
+
     // Variable options
 
     public string[] namePresets1 = {"A", "Be", "Ca", "Do", "E", "Fe", "Fo", "Gi", "Ha", "Ho", "I", "Jo", "Ka", "Ko", "Ki", "La", "Lu", "Ma", "Mi", "Mo", 
@@ -46,6 +48,11 @@ public class CreatureController : MonoBehaviour
     private float chanceOfKnex;
     private float chanceOfFight;
 
+    // Knexing
+
+    public GameObject child;
+    private GameObject newChild;
+
     void Start()
     {
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
@@ -64,11 +71,14 @@ public class CreatureController : MonoBehaviour
 
         // Chosen variables
 
-        chosenColor = creatureColors[Random.Range(0, 8)];
-        chosenScale = Random.Range(30, 100);
-        chosenStrength = Random.Range(0, 100);
-        chosenFriendliness = Random.Range(0, 100);
-        chosenSpeed = Random.Range(0, 100);
+        if (firstGeneration)
+        {
+            chosenColor = creatureColors[Random.Range(0, 8)];
+            chosenScale = Random.Range(30, 100);
+            chosenStrength = Random.Range(0, 100);
+            chosenFriendliness = Random.Range(0, 100);
+            chosenSpeed = Random.Range(0, 100);
+        }
 
         gameObject.GetComponent<Renderer>().material = chosenColor;
         gameObject.transform.localScale = new Vector3(transform.localScale.x, chosenScale, transform.localScale.z);
@@ -113,7 +123,57 @@ public class CreatureController : MonoBehaviour
                 } 
                 if ((Random.Range(0, 100) < 66) && Random.Range(0, 100) > 33)
                 {
-                    Debug.Log("KNEX");
+                    // Instantiate child
+
+                    newChild = Instantiate(child, new Vector3((col.transform.position.x + transform.position.x) / 2,
+                    (col.transform.position.y + transform.position.y) / 2,
+                    (col.transform.position.z + transform.position.z) / 2
+                    ), Quaternion.identity) as GameObject;
+
+                    // Add father or mother attributes
+                    newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().firstGeneration = false;
+                    newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenColor = chosenColor;
+                    newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenScale = col.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenScale;
+
+                    // < 50 = mother component, > 50 = father component
+
+                    // Strength
+
+                    if (Random.Range(0, 100) < 50)
+                    {
+                        newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenStrength = chosenStrength;
+                    }
+                    else if (Random.Range(0, 100) > 50)
+                    {
+                        newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenStrength = col.transform.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenStrength;
+                    }
+
+                    // Friendliness
+
+                    if (Random.Range(0, 100) < 50)
+                    {
+                        newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenFriendliness = chosenFriendliness;
+                    }
+                    else if (Random.Range(0, 100) > 50)
+                    {
+
+                            // HIER HIER VERVANG BARBA BARBA CONTAINER INPV GET CHILD DOE BARBA KOM OP
+
+                        newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenFriendliness = col.transform.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenFriendliness;
+                    }
+
+                    // Speed
+
+                    if (Random.Range(0, 100) < 50)
+                    {
+                        newChild.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenSpeed = chosenSpeed;
+                    }
+                    else if (Random.Range(0, 100) > 50)
+                    {
+                        newChild.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenSpeed = col.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenSpeed;
+                    }
+
+                    Debug.Log("KNEX  -   " + transform.position);
                     gameController.totalBirths++;
                 }
                 if ((Random.Range(0, 100) < 33) && Random.Range(0, 100) > 0)

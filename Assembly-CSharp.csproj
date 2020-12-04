@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{dfb9d20f-ecf9-d658-9602-1c160aa285c3}</ProjectGuid>
+    <ProjectGuid>{e1340907-6f02-c643-3d91-e4ab907b1c42}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -45,6 +45,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\BarbaContainer.cs" />
      <Compile Include="Assets\Scripts\BiomeSetting.cs" />
      <Compile Include="Assets\Scripts\CreatureController.cs" />
      <Compile Include="Assets\Scripts\CreatureSpawner.cs" />
@@ -333,13 +334,13 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0f6/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Editor">
- <HintPath>C:/Users/luukn/Desktop/Code/Unity Projects/Creatures v2/Creatures v2/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Editor.dll</HintPath>
+ <HintPath>C:/Users/LuukN/Desktop/CoderClassRobotica/Unity/Barbasim/Barbasim/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.Tracker">
- <HintPath>C:/Users/luukn/Desktop/Code/Unity Projects/Creatures v2/Creatures v2/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Tracker.dll</HintPath>
+ <HintPath>C:/Users/LuukN/Desktop/CoderClassRobotica/Unity/Barbasim/Barbasim/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Tracker.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
- <HintPath>C:/Users/luukn/Desktop/Code/Unity Projects/Creatures v2/Creatures v2/Library/PackageCache/com.unity.analytics@3.3.5/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
+ <HintPath>C:/Users/LuukN/Desktop/CoderClassRobotica/Unity/Barbasim/Barbasim/Library/PackageCache/com.unity.analytics@3.3.5/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0f6/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -698,79 +699,79 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Timeline.Editor.csproj">
-      <Project>{20ebdbcc-3036-439d-0fe3-cf70f1673985}</Project>
+      <Project>{adc383d8-51ac-60b4-9144-a99d27af4384}</Project>
       <Name>Unity.Timeline.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="com.unity.multiplayer-hlapi.Editor.csproj">
-      <Project>{cca55294-4e74-a8d7-c77c-8a3813a8045b}</Project>
+      <Project>{58eacd82-218e-318a-ae91-8ecd55f63772}</Project>
       <Name>com.unity.multiplayer-hlapi.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VSCode.Editor.csproj">
-      <Project>{2261109e-f0e6-5931-2339-f9c1b08b5d2f}</Project>
+      <Project>{12471da6-a687-f11f-96ff-e2aca0dc2651}</Project>
       <Name>Unity.VSCode.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
-      <Project>{1f7270f6-dcb7-2fcc-645f-f4a45a8452ae}</Project>
+      <Project>{99c67036-7761-e9a1-79b8-0a5f5f6557ba}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{63621459-732d-0c02-a460-04fd81e179b2}</Project>
+      <Project>{bcacf071-ec3f-7ee2-2aec-c8282e4d2a98}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
-      <Project>{7ef5d414-1f46-a768-af7d-1c7d5b039eb6}</Project>
+      <Project>{b278d289-1c21-4cce-a595-182f2fd64ab6}</Project>
       <Name>Unity.Timeline</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
-      <Project>{6217faf7-03a0-5e77-3b14-1a1adce08e1a}</Project>
+      <Project>{4c8d39c9-eea6-f69b-2217-139a7225d1ee}</Project>
       <Name>Unity.CollabProxy.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="com.unity.multiplayer-weaver.Editor.csproj">
-      <Project>{7a75a587-2757-11a5-bdc2-1b6432830948}</Project>
+      <Project>{fad8728f-58a4-6b85-e04f-59f784a78989}</Project>
       <Name>com.unity.multiplayer-weaver.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.XR.LegacyInputHelpers.csproj">
-      <Project>{c20a8112-94cc-da43-e10d-7931978a4315}</Project>
+      <Project>{e671eae3-75b4-d181-4381-7debe2717e81}</Project>
       <Name>UnityEngine.XR.LegacyInputHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Rider.Editor.csproj">
-      <Project>{9170ae49-dbc0-cff3-0b98-6f50d653cc4a}</Project>
+      <Project>{e9bec603-ce3c-8b83-f5bc-57c00905681c}</Project>
       <Name>Unity.Rider.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
-      <Project>{ae2ab38b-77e1-6f7d-a70a-5bc45c7d5da2}</Project>
+      <Project>{8c504a7f-ef4b-cb2a-b43c-a8c82c676533}</Project>
       <Name>Unity.2D.Sprite.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Tilemap.Editor.csproj">
-      <Project>{040425bf-fe44-e6e8-d270-52f6532e0269}</Project>
+      <Project>{b03276f1-a754-c8b4-6007-a464a0a65fd0}</Project>
       <Name>Unity.2D.Tilemap.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.SpatialTracking.csproj">
-      <Project>{6ce1a3cd-ca20-5e77-a1e2-3eda40926ead}</Project>
+      <Project>{495ce1c5-573c-3f77-dea2-7aa131d32601}</Project>
       <Name>UnityEditor.SpatialTracking</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.SpatialTracking.csproj">
-      <Project>{e02366c0-1acc-6a86-9486-379519092e40}</Project>
+      <Project>{5d76bc7a-0c61-c19d-0b2b-f9133d897bf7}</Project>
       <Name>UnityEngine.SpatialTracking</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
-      <Project>{8a197a0f-854a-fcc3-92c4-775e0fc504e3}</Project>
+      <Project>{a3c33423-538e-5c93-0f03-a0bad6bb454d}</Project>
       <Name>Unity.TextMeshPro</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Analytics.DataPrivacy.csproj">
-      <Project>{46f26686-547a-aab9-d907-612688629a9c}</Project>
+      <Project>{ec5bd857-6461-0c02-e284-591851fa248e}</Project>
       <Name>Unity.Analytics.DataPrivacy</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.XR.LegacyInputHelpers.csproj">
-      <Project>{177d8eb7-d888-fa0e-106b-f8aa7e89adbb}</Project>
+      <Project>{ec67b41b-5eae-69de-51b1-d7b8495694f5}</Project>
       <Name>UnityEditor.XR.LegacyInputHelpers</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{d8839153-51a2-a50d-6e14-c082228f531a}</Project>
+      <Project>{24d77f2e-bdc0-2e89-3329-36ad125c2b9c}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="com.unity.multiplayer-hlapi.Runtime.csproj">
-      <Project>{2391d9cc-0ce4-2f57-1ab0-69d3a227f7ad}</Project>
+      <Project>{0d1832b1-0e7a-02b1-c57b-5b60eba8a29c}</Project>
       <Name>com.unity.multiplayer-hlapi.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
