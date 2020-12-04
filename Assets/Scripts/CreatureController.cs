@@ -131,9 +131,9 @@ public class CreatureController : MonoBehaviour
                     ), Quaternion.identity) as GameObject;
 
                     // Add father or mother attributes
-                    newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().firstGeneration = false;
-                    newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenColor = chosenColor;
-                    newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenScale = col.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenScale;
+                    newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().firstGeneration = false;
+                    newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenColor = chosenColor;
+                    newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenScale = col.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenScale;
 
                     // < 50 = mother component, > 50 = father component
 
@@ -141,36 +141,36 @@ public class CreatureController : MonoBehaviour
 
                     if (Random.Range(0, 100) < 50)
                     {
-                        newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenStrength = chosenStrength;
+                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenStrength = chosenStrength;
                     }
                     else if (Random.Range(0, 100) > 50)
                     {
-                        newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenStrength = col.transform.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenStrength;
+                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenStrength = col.transform.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenStrength;
                     }
 
                     // Friendliness
 
                     if (Random.Range(0, 100) < 50)
                     {
-                        newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenFriendliness = chosenFriendliness;
+                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenFriendliness = chosenFriendliness;
                     }
                     else if (Random.Range(0, 100) > 50)
                     {
 
                             // HIER HIER VERVANG BARBA BARBA CONTAINER INPV GET CHILD DOE BARBA KOM OP
 
-                        newChild.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenFriendliness = col.transform.GetComponent<BarbaContainer>.barba.GetComponent<CreatureController>().chosenFriendliness;
+                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenFriendliness = col.transform.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenFriendliness;
                     }
 
                     // Speed
 
                     if (Random.Range(0, 100) < 50)
                     {
-                        newChild.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenSpeed = chosenSpeed;
+                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenSpeed = chosenSpeed;
                     }
                     else if (Random.Range(0, 100) > 50)
                     {
-                        newChild.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenSpeed = col.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenSpeed;
+                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenSpeed = col.transform.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenSpeed;
                     }
 
                     Debug.Log("KNEX  -   " + transform.position);
