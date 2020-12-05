@@ -117,6 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2512164612819440202}
   - component: {fileID: 8753342647644368809}
+  - component: {fileID: 7122286255576355939}
   m_Layer: 2
   m_Name: Creature Area
   m_TagString: CreatureArea
@@ -151,7 +152,20 @@ CapsuleCollider:
   m_Radius: 0.7
   m_Height: 2.13
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.79, z: 0}
+--- !u!114 &7122286255576355939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473502943234984140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f360d03865f7154fb1c4190c4a6dc3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  creatureController: {fileID: 6236816758276938309}
 --- !u!1 &2714670956273794717
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +175,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2714670956273794718}
-  - component: {fileID: 1660929483937722173}
   m_Layer: 0
   m_Name: Barba
   m_TagString: Creature
@@ -184,19 +197,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1660929483937722173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2714670956273794717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b8e00e83c2a3c84e97ed193ed4d69cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  barba: {fileID: 6236816758276938308}
 --- !u!1 &5922394736848987305
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +923,7 @@ MonoBehaviour:
   chosenStrength: 0
   chosenFriendliness: 0
   chosenSpeed: 0
-  child: {fileID: 2714670956273794717}
+  movementAngle: 0
 --- !u!33 &2129570043096535649
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -984,7 +984,7 @@ CapsuleCollider:
   m_Radius: 0.25
   m_Height: 1.1
   m_Direction: 1
-  m_Center: {x: 0.267934, y: 0.235, z: 0.0051870043}
+  m_Center: {x: 0, y: 0, z: -0.045}
 --- !u!54 &724260011167389875
 Rigidbody:
   m_ObjectHideFlags: 0

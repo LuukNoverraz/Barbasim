@@ -36,7 +36,7 @@ public class CreatureController : MonoBehaviour
     
     private float timeBetweenActions;
 
-    private float movementAngle;
+    public float movementAngle;
     private Vector3 currentAngle;
 
     private float movementSpeed = 0.5f;
@@ -49,10 +49,7 @@ public class CreatureController : MonoBehaviour
     private float chanceOfFight;
 
     // Knexing
-
-    public GameObject child;
     private GameObject newChild;
-
     void Start()
     {
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
@@ -121,19 +118,21 @@ public class CreatureController : MonoBehaviour
                 {
                     Debug.Log("NONE");
                 } 
+
+                
                 if ((Random.Range(0, 100) < 66) && Random.Range(0, 100) > 33)
                 {
                     // Instantiate child
 
-                    newChild = Instantiate(child, new Vector3((col.transform.position.x + transform.position.x) / 2,
-                    (col.transform.position.y + transform.position.y) / 2,
+                    newChild = Instantiate(gameController.child, new Vector3((col.transform.position.x + transform.position.x) / 2,
+                    30.0f,
                     (col.transform.position.z + transform.position.z) / 2
                     ), Quaternion.identity) as GameObject;
 
                     // Add father or mother attributes
-                    newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().firstGeneration = false;
-                    newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenColor = chosenColor;
-                    newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenScale = col.transform.GetChild(0).gameObject.GetComponent<CreatureController>().chosenScale;
+                    newChild.GetComponentInChildren<CreatureController>().firstGeneration = false;
+                    newChild.GetComponentInChildren<CreatureController>().chosenColor = chosenColor;
+                    newChild.GetComponentInChildren<CreatureController>().chosenScale = col.GetComponentInParent<CreatureController>().chosenScale;
 
                     // < 50 = mother component, > 50 = father component
 
@@ -141,45 +140,47 @@ public class CreatureController : MonoBehaviour
 
                     if (Random.Range(0, 100) < 50)
                     {
-                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenStrength = chosenStrength;
+                        newChild.GetComponentInChildren<CreatureController>().chosenStrength = chosenStrength;
                     }
                     else if (Random.Range(0, 100) > 50)
                     {
-                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenStrength = col.transform.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenStrength;
+                        newChild.GetComponentInChildren<CreatureController>().chosenStrength = col.GetComponentInParent<CreatureController>().chosenStrength;
                     }
 
                     // Friendliness
 
                     if (Random.Range(0, 100) < 50)
                     {
-                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenFriendliness = chosenFriendliness;
+                        newChild.GetComponentInChildren<CreatureController>().chosenFriendliness = chosenFriendliness;
                     }
                     else if (Random.Range(0, 100) > 50)
                     {
-
-                            // HIER HIER VERVANG BARBA BARBA CONTAINER INPV GET CHILD DOE BARBA KOM OP
-
-                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenFriendliness = col.transform.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenFriendliness;
+                        newChild.GetComponentInChildren<CreatureController>().chosenFriendliness = col.GetComponentInParent<CreatureController>().chosenFriendliness;
                     }
 
                     // Speed
 
                     if (Random.Range(0, 100) < 50)
                     {
-                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenSpeed = chosenSpeed;
+                        newChild.GetComponentInChildren<CreatureController>().chosenSpeed = chosenSpeed;
                     }
                     else if (Random.Range(0, 100) > 50)
                     {
-                        newChild.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenSpeed = col.transform.GetComponent<BarbaContainer>().barba.GetComponent<CreatureController>().chosenSpeed;
+                        newChild.GetComponentInChildren<CreatureController>().chosenSpeed = col.GetComponentInParent<CreatureController>().chosenSpeed;
                     }
 
-                    Debug.Log("KNEX  -   " + transform.position);
+                    Debug.Log(creatureName + " + " + col.GetComponentInParent<CreatureController>().creatureName + " = " + newChild.GetComponentInChildren<CreatureController>().creatureName);
+
                     gameController.totalBirths++;
                 }
+
                 if ((Random.Range(0, 100) < 33) && Random.Range(0, 100) > 0)
                 {
-                    Debug.Log("FIGHT");
+                    Debug.Log(col.GetComponentInParent<CreatureController>().creatureName + " just killed " + creatureName);
+                    
                     gameController.totalDeaths++;
+
+                    Destroy(gameObject);
                 } 
             }
         }

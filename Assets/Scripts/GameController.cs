@@ -9,9 +9,12 @@ public class GameController : MonoBehaviour
     public GameObject creatureInfo;
     public GameObject creatureImage;
     public Text[] creatureTexts;
+    public GameObject child;
     public int totalDeaths;
     public int totalBirths;
     public TextMesh[] debugText;
+    public GameObject debugTower;
+
 
     void Start()
     {

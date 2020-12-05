@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BarbaContainer : MonoBehaviour
 {
-    public GameObject barba;
+    public CreatureController barba;
 }
