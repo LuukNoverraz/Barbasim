@@ -10,9 +10,9 @@ public class SuicideAversion : MonoBehaviour
     {
         if (col.tag == "Water")
         {
-            // 5% chance to still be suicidal
+            // 2% chance to still be suicidal
 
-            if (Random.Range(0, 100) < 95)
+            if (Random.Range(0, 100) < 98)
             {
                 creatureController.movementAngle *= -1;
             }
