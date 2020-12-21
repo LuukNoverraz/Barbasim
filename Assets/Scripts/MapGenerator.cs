@@ -52,7 +52,7 @@ public class MapGenerator : MonoBehaviour
     private MeshData _meshData;
     private Mesh _netMesh;
 
-    void Start()
+    void Awake()
     {
         GenerateRandomSeed();
         GenerateMap();

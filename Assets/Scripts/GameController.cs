@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public float chosenTime;
     public Camera mainCamera;
     public bool skipIntro;
+    [HideInInspector] public bool cursorMode = true;
     private RaycastHit hit;
     public GameObject startMenu;
     public GameObject creatureInfo;
     public GameObject followCanvas;
+    public GameObject controlsCanvas;
     public GameObject creatureImage;
     public Text[] creatureTexts;
     public GameObject child;
@@ -30,9 +33,14 @@ public class GameController : MonoBehaviour
         {
             startMenu.SetActive(true);
         }
+
+        else
+        {
+            Time.timeScale = chosenTime;
+        }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         debugText[0].text = totalDeaths.ToString();
         debugText[1].text = totalBirths.ToString();
@@ -43,7 +51,7 @@ public class GameController : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.collider.tag == "Creature")
+                if (hit.collider.tag == "Creature" && !startMenu.gameObject.activeSelf)
                 {
                     creatureController = hit.collider.GetComponent<CreatureController>();
                     creatureImage.GetComponent<Image>().color = (creatureController.chosenColor.color);
@@ -74,13 +82,29 @@ public class GameController : MonoBehaviour
         {
             StopFollowing();
         }
+        else if (Input.GetKeyDown(KeyCode.Escape) && controlsCanvas.activeSelf)
+        {
+            CloseControlMenu();
+        }
     }
 
     public void StartGame()
     {
         startMenu.SetActive(false);
-        Time.timeScale = 1.0f;
+        Time.timeScale = chosenTime;
         mainCamera.farClipPlane = 1000.0f;
+    }
+
+    public void OpenControlMenu()
+    {
+        startMenu.SetActive(false);
+        controlsCanvas.SetActive(true);
+    }
+
+    public void CloseControlMenu()
+    {
+        controlsCanvas.SetActive(false);
+        startMenu.SetActive(true);
     }
 
     public void FollowCreature()

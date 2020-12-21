@@ -1,32 +1,12 @@
-﻿// using UnityEngine;
-
-// public class CameraFollow : MonoBehaviour
-// {
-//     public GameController gameController;
-//     public Transform target;
-//     public float smoothSpeed = 0.125f;
-//     public Vector3 offset;
-
-//     public void LockOn()
-//     {
-//         target = gameController.creatureController.gameObject.transform;
-//     }
-//     void LateUpdate()
-//     {
-//         if (target != null)
-//         {
-//             transform.position = target.position + offset;
-//         }
-//     } 
-// }
-
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    public bool skipIntro = false;
     public GameController gameController;
     public Transform target;
-    public Transform island;
+    public Transform origin;
+    private RaycastHit mapHit;
     
     // FOLLOW INFO
     public float distance = 2.0f;
@@ -57,7 +37,13 @@ public class CameraFollow : MonoBehaviour
     float velocityYIsland = 0.0f;
 
     void Start()
-    {
+    {        
+        if (!gameController.skipIntro)
+        {
+            Time.timeScale = 0;
+
+            GetComponent<Camera>().farClipPlane = 1.0f;
+        }
         Vector3 angles = transform.eulerAngles;
         rotationYAxis = angles.y;
         rotationXAxis = angles.x;
@@ -69,6 +55,18 @@ public class CameraFollow : MonoBehaviour
     public void LockOff()
     {
         target = null;
+    }
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray mapRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(mapRay, out mapHit))
+            {
+                origin.transform.position = mapHit.point;
+            }
+        }
     }
     void LateUpdate()
     {
@@ -87,11 +85,11 @@ public class CameraFollow : MonoBehaviour
             Quaternion rotation = toRotation;
 
             distance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * 5, distanceMin, distanceMax);
-            RaycastHit hit;
-            if (Physics.Linecast(target.position, transform.position, out hit))
-            {
-                distance -= hit.distance;
-            }
+            // RaycastHit hit;
+            // if (Physics.Linecast(target.position, transform.position, out hit))
+            // {
+            //     distance -= hit.distance;
+            // }
             Vector3 negDistance = new Vector3(0.0f, 0.0f, -distance);
             Vector3 position = rotation * negDistance + target.position;
 
@@ -124,7 +122,7 @@ public class CameraFollow : MonoBehaviour
             //     distanceIsland -= hit.distance;
             // }
             Vector3 negDistance = new Vector3(0.0f, 0.0f, -distanceIsland);
-            Vector3 position = rotationIsland * negDistance + island.position;
+            Vector3 position = rotationIsland * negDistance + origin.position;
 
             transform.rotation = rotationIsland;
             transform.position = position;

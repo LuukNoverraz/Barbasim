@@ -5,6 +5,7 @@ using UnityEngine;
 public class CreatureController : MonoBehaviour
 {
     public GameController gameController;
+    public SetCursor setCursor;
     public bool firstGeneration = true;
     public string father = "???";
     public string mother = "???";
@@ -36,6 +37,7 @@ public class CreatureController : MonoBehaviour
     // Movement
     
     private float timeBetweenActions;
+    private float timeBetweenSounds;
 
     public float movementAngle;
     private Vector3 currentAngle;
@@ -50,6 +52,7 @@ public class CreatureController : MonoBehaviour
     private float chanceOfFight;
 
     // Knexing
+    [HideInInspector] public bool canKnex = false;
     private GameObject newChild;
 
     // Particles
@@ -58,7 +61,10 @@ public class CreatureController : MonoBehaviour
 
     void Start()
     {
+        Invoke("KnexCoolDown", 60.0f);
+
         gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        setCursor = GameObject.FindWithTag("GameController").GetComponent<SetCursor>();
 
         // Chosen name
 
@@ -80,7 +86,7 @@ public class CreatureController : MonoBehaviour
             chosenScale = Random.Range(30, 100);
             chosenStrength = Random.Range(0, 100);
             chosenFriendliness = Random.Range(0, 100);
-            chosenSpeed = Random.Range(2, 100);
+            chosenSpeed = Random.Range(10, 100);
         }
 
         gameObject.GetComponent<Renderer>().material = chosenColor;
@@ -103,10 +109,15 @@ public class CreatureController : MonoBehaviour
         }
     }
 
+    public void KnexCoolDown()
+    {
+        canKnex = true;
+    }
+
     public void MoveCreature()
     {
-        timeBetweenActions = Random.Range(4.0f, 10.0f);
-        movementAngle = Random.Range(0.0f, 360.0f);
+        timeBetweenActions = Random.Range(0.0f, 60.0f);
+        movementAngle = Random.Range(transform.localEulerAngles.y, transform.localEulerAngles.y + 90.0f);
         transform.Rotate(0.0f, movementAngle, 0.0f);
         movementVariation = Random.Range(0.0f, 0.2f);
     }
@@ -115,22 +126,28 @@ public class CreatureController : MonoBehaviour
     {
         if (col.tag == "Water")
         {
-            Destroy(gameObject.transform.parent.gameObject);
             // gameController.totalDeaths++;
+            Destroy(gameObject.transform.parent.gameObject);
         }
 
         if (col.tag == "CreatureArea")
         {
             chanceOfNothing = Random.Range(0, 100);
-            chanceOfKnex = chosenFriendliness + Random.Range(0, 50);
+            chanceOfKnex = chosenFriendliness + Random.Range(0, 100);
             chanceOfFight = 100 - chosenFriendliness + Random.Range(-50, 0);
 
             int mainChance = Random.Range(0, 100);
 
-            if (chanceOfNothing < 10)
-            {   
-                if ((mainChance < 66) && mainChance > 33 && chanceOfKnex > 33)
+            if (chanceOfNothing < 50)
+            {
+                if (mainChance < 66 && mainChance > 33 && chanceOfKnex > 33 && canKnex && col.GetComponentInParent<CreatureController>().creatureName != mother && col.GetComponentInParent<CreatureController>().creatureName != father)
                 {
+                    Invoke("KnexCoolDown", 60.0f);
+                    canKnex = false;
+
+                    col.GetComponentInParent<CreatureController>().Invoke("KnexCoolDown", 60.0f);
+                    col.GetComponentInParent<CreatureController>().canKnex = false;
+
                     // Apply particles
 
                     knexParticles.Play();
@@ -152,33 +169,39 @@ public class CreatureController : MonoBehaviour
 
                     // Strength
 
-                    if (Random.Range(0, 100) < 50)
+                    int randomStrength = Random.Range(0, 100);
+
+                    if (randomStrength < 50)
                     {
                         newChild.GetComponentInChildren<CreatureController>().chosenStrength = chosenStrength;
                     }
-                    else if (Random.Range(0, 100) > 50)
+                    else if (randomStrength > 50)
                     {
                         newChild.GetComponentInChildren<CreatureController>().chosenStrength = col.GetComponentInParent<CreatureController>().chosenStrength;
                     }
 
                     // Friendliness
 
-                    if (Random.Range(0, 100) < 50)
+                    int randomFriendliness = Random.Range(0, 100);
+
+                    if (randomFriendliness < 50)
                     {
                         newChild.GetComponentInChildren<CreatureController>().chosenFriendliness = chosenFriendliness;
                     }
-                    else if (Random.Range(0, 100) > 50)
+                    else if (randomFriendliness > 50)
                     {
                         newChild.GetComponentInChildren<CreatureController>().chosenFriendliness = col.GetComponentInParent<CreatureController>().chosenFriendliness;
                     }
 
                     // Speed
 
-                    if (Random.Range(0, 100) < 50)
+                    int randomSpeed = Random.Range(0, 100);
+
+                    if (randomSpeed < 50)
                     {
                         newChild.GetComponentInChildren<CreatureController>().chosenSpeed = chosenSpeed;
                     }
-                    else if (Random.Range(0, 100) > 50)
+                    else if (randomSpeed > 50)
                     {
                         newChild.GetComponentInChildren<CreatureController>().chosenSpeed = col.GetComponentInParent<CreatureController>().chosenSpeed;
                     }
@@ -188,7 +211,7 @@ public class CreatureController : MonoBehaviour
                     newChild.GetComponentInChildren<CreatureController>().father = creatureName;
                     newChild.GetComponentInChildren<CreatureController>().mother = col.GetComponentInParent<CreatureController>().creatureName;
 
-                    gameController.totalBirths++;
+                    // gameController.totalBirths++;
                 }
 
                 if ((mainChance < 33) && mainChance > 0 && chanceOfFight > 33)
@@ -198,19 +221,19 @@ public class CreatureController : MonoBehaviour
                     col.GetComponentInParent<CreatureController>().fightParticles.Play();
 
                     if (chosenStrength > col.GetComponentInParent<CreatureController>().chosenStrength)
-                    {
+                    {    
+                        // gameController.totalDeaths++;
+                
                         Destroy(col.GetComponentInParent<CreatureController>().gameObject.transform.parent.gameObject);
-                        // Debug.Log(creatureName + " just killed " + col.GetComponentInParent<CreatureController>().creatureName);
                     }
 
                     if (col.GetComponentInParent<CreatureController>().chosenStrength > chosenStrength)
                     {
+                        // gameController.totalDeaths++;
+
                         Destroy(gameObject.transform.parent.gameObject);
-                        // Debug.Log(col.GetComponentInParent<CreatureController>().creatureName + " just killed " + creatureName);
                     }
-                    
-                    gameController.totalDeaths++;
-                } 
+                }
             }
         }
     }

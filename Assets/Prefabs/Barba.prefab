@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 2512164612819440202}
   - component: {fileID: 8753342647644368809}
   - component: {fileID: 7122286255576355939}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Creature Area
   m_TagString: CreatureArea
   m_Icon: {fileID: 0}
@@ -419,7 +419,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.9339623, g: 0.629984, b: 0.8404278, a: 1}
+      maxColor: {r: 0.9339623, g: 0.629984, b: 0.8404278, a: 0.78431374}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5682,6 +5682,7 @@ MonoBehaviour:
   chosenFriendliness: 0
   chosenSpeed: 0
   movementAngle: 0
+  canKnex: 0
   knexParticles: {fileID: 4870317560368590499}
   fightParticles: {fileID: 3274880225680280973}
 --- !u!33 &2129570043096535649
@@ -5691,7 +5692,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6236816758276938308}
-  m_Mesh: {fileID: 2380107528693328926, guid: bdf29674343301046bdcfded32a49f6d, type: 3}
+  m_Mesh: {fileID: 2380107528693328926, guid: 0d84ef54c7bfe8346ae4a98a2a13a79a, type: 3}
 --- !u!23 &5670394497433792152
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5983,7 +5984,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.5754717, g: 0.11672304, b: 0.11672304, a: 1}
+      maxColor: {r: 0.5754717, g: 0.11672304, b: 0.11672304, a: 0.78431374}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
