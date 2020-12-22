@@ -14,12 +14,18 @@ public class GameController : MonoBehaviour
     public GameObject creatureInfo;
     public GameObject followCanvas;
     public GameObject controlsCanvas;
+    public GameObject speedCanvas;
     public GameObject creatureImage;
     public Text[] creatureTexts;
     public GameObject child;
     public CreatureController creatureController;
     public int totalDeaths;
     public int totalBirths;
+    private bool pauseStatus = false;
+    private bool speedTwoStatus = false;
+    private bool speedThreeStatus = false;
+    public Image pauseImage;
+    public Sprite[] pauseImages;
     public TextMesh[] debugText;
     public GameObject debugTower;
 
@@ -28,6 +34,7 @@ public class GameController : MonoBehaviour
     {
         creatureInfo.SetActive(false);
         followCanvas.SetActive(false);
+        speedCanvas.SetActive(false);
 
         if (!skipIntro)
         {
@@ -40,10 +47,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        debugText[0].text = totalDeaths.ToString();
-        debugText[1].text = totalBirths.ToString();
+        // debugText[0].text = totalDeaths.ToString();
+        // debugText[1].text = totalBirths.ToString();
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -69,11 +76,14 @@ public class GameController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && !startMenu.activeSelf && !controlsCanvas.activeSelf)
+        {
+            PauseGame();
+        }
         if (Input.GetKeyDown(KeyCode.F) && creatureInfo.activeSelf)
         {
             FollowCreature();
         }
-
         if (Input.GetKeyDown(KeyCode.Escape) && creatureInfo.activeSelf)
         {
             DisableInfo();
@@ -91,6 +101,7 @@ public class GameController : MonoBehaviour
     public void StartGame()
     {
         startMenu.SetActive(false);
+        speedCanvas.SetActive(true);
         Time.timeScale = chosenTime;
         mainCamera.farClipPlane = 1000.0f;
     }
@@ -107,16 +118,68 @@ public class GameController : MonoBehaviour
         startMenu.SetActive(true);
     }
 
+    public void PauseGame()
+    {
+        if (!pauseStatus)
+        {
+            pauseStatus = true;
+            pauseImage.sprite = pauseImages[1];
+            Time.timeScale = 0;
+            Debug.Log("0");
+        }
+        else if (pauseStatus)
+        {
+            pauseStatus = false;
+            pauseImage.sprite = pauseImages[0];
+            Time.timeScale = 1;
+            Debug.Log("1");
+        }
+    }
+
+    public void SpeedTwo()
+    {
+        if (!speedTwoStatus)
+        {
+            speedTwoStatus = true;
+            Time.timeScale = 2.5f;
+            Debug.Log("2.5");
+        }
+        else if (speedTwoStatus)
+        {
+            speedTwoStatus = false;
+            Time.timeScale = 1;
+            Debug.Log("1");
+        }
+    }
+
+    public void SpeedThree()
+    {
+        if (!speedThreeStatus)
+        {
+            speedThreeStatus = true;
+            Time.timeScale = 5;
+            Debug.Log("5");
+        }
+        else if (speedThreeStatus)
+        {
+            speedThreeStatus = false;
+            Time.timeScale = 1;
+            Debug.Log("1");
+        }
+    }
+
     public void FollowCreature()
     {
         DisableInfo();
         followCanvas.SetActive(true);
+        speedCanvas.SetActive(false);
         mainCamera.GetComponent<CameraFollow>().LockOn();
     }
 
     public void StopFollowing()
     {
         followCanvas.SetActive(false);
+        speedCanvas.SetActive(true);
         mainCamera.GetComponent<CameraFollow>().LockOff();
     }
 

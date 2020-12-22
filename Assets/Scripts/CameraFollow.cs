@@ -95,15 +95,15 @@ public class CameraFollow : MonoBehaviour
 
             transform.rotation = rotation;
             transform.position = position;
-            velocityX = Mathf.Lerp(velocityX, 0, Time.deltaTime * smoothTime);
-            velocityY = Mathf.Lerp(velocityY, 0, Time.deltaTime * smoothTime);
+            velocityX = Mathf.Lerp(velocityX, 0, Time.unscaledDeltaTime * smoothTime);
+            velocityY = Mathf.Lerp(velocityY, 0, Time.unscaledDeltaTime * smoothTime);
         }
 
         else if (!target)
         {
             gameController.StopFollowing();
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && !gameController.startMenu.activeSelf)
             {
                 velocityXIsland += xSpeedIsland * Input.GetAxis("Mouse X") * distanceIsland * 0.02f;
                 velocityYIsland += ySpeedIsland * Input.GetAxis("Mouse Y") * 0.02f;
@@ -117,17 +117,17 @@ public class CameraFollow : MonoBehaviour
 
             distanceIsland = Mathf.Clamp(distanceIsland - Input.GetAxis("Mouse ScrollWheel") * 45, distanceMinIsland, distanceMaxIsland);
             // RaycastHit hit;
-            // if (Physics.Linecast(island.position, transform.position, out hit))
+            // if (Physics.Linecast(origin.position, transform.position, out hit))
             // {
-            //     distanceIsland -= hit.distance;
+            //     distanceIsland += hit.distance;
             // }
             Vector3 negDistance = new Vector3(0.0f, 0.0f, -distanceIsland);
             Vector3 position = rotationIsland * negDistance + origin.position;
 
             transform.rotation = rotationIsland;
             transform.position = position;
-            velocityXIsland = Mathf.Lerp(velocityXIsland, 0, Time.deltaTime * smoothTimeIsland);
-            velocityYIsland = Mathf.Lerp(velocityYIsland, 0, Time.deltaTime * smoothTimeIsland);
+            velocityXIsland = Mathf.Lerp(velocityXIsland, 0, Time.unscaledDeltaTime * smoothTimeIsland);
+            velocityYIsland = Mathf.Lerp(velocityYIsland, 0, Time.unscaledDeltaTime * smoothTimeIsland);
         }
     }
     public static float ClampAngle(float angle, float min, float max)

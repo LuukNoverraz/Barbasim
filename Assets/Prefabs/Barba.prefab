@@ -5579,6 +5579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
+  setCursor: {fileID: 0}
   firstGeneration: 1
   father: ???
   mother: ???

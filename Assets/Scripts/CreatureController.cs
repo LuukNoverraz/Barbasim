@@ -117,7 +117,7 @@ public class CreatureController : MonoBehaviour
     public void MoveCreature()
     {
         timeBetweenActions = Random.Range(0.0f, 60.0f);
-        movementAngle = Random.Range(transform.localEulerAngles.y, transform.localEulerAngles.y + 90.0f);
+        movementAngle = Random.Range(transform.localEulerAngles.y - 90.0f, transform.localEulerAngles.y + 90.0f);
         transform.Rotate(0.0f, movementAngle, 0.0f);
         movementVariation = Random.Range(0.0f, 0.2f);
     }
